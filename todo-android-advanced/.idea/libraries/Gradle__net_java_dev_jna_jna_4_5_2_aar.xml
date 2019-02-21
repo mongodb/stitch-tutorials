@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.java.dev.jna:jna:4.5.2@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jna-4.5.2.aar/aa414935b3c1db18c93f4f19b64417f6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jna-4.5.2.aar/aa414935b3c1db18c93f4f19b64417f6/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/4.5.2/abbb850e6885dd52b7b785add4a821f4b45ceb5a/jna-4.5.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
