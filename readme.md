@@ -50,4 +50,4 @@ There are several ways to reach us:
 1. For code issues , file an issue in this repo.
 2. For documentation issues, on any documentation page, use the "Was this page helpful" widget.
 3. For feature requests, create an issue in this repo, or at [https://mongodb.canny.io/mongodb-stitch](https://mongodb.canny.io/mongodb-stitch).
-4. Join the Slack community at [mongo-db.slack.com](https://mongo-db.slack.com).
+4. Join the Slack community at [mongo-db.slack.com](https://community-slack.mongodb.com).
