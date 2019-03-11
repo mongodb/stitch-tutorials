@@ -16,8 +16,8 @@
 
 package com.mongodb.stitch.android.examples.todosync;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,12 +38,13 @@ import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
-import com.mongodb.stitch.core.auth.providers.serverapikey.ServerApiKeyCredential;
 import com.mongodb.stitch.core.internal.common.BsonUtils;
+import com.mongodb.stitch.core.services.mongodb.remote.ChangeEvent;
+import com.mongodb.stitch.core.services.mongodb.remote.OperationType;
 import com.mongodb.stitch.core.services.mongodb.remote.sync.ChangeEventListener;
 import com.mongodb.stitch.core.services.mongodb.remote.sync.DefaultSyncConflictResolvers;
 import com.mongodb.stitch.core.services.mongodb.remote.sync.SyncDeleteResult;
-import com.mongodb.stitch.core.services.mongodb.remote.sync.internal.ChangeEvent;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,12 +66,9 @@ public class TodoListActivity extends AppCompatActivity {
   private final ListUpdateListener listUpdateListener = new ListUpdateListener();
   private final ItemUpdateListener itemUpdateListener = new ItemUpdateListener();
   private TodoAdapter todoAdapter;
-  private RemoteMongoCollection<Document> lists;
   private RemoteMongoCollection<TodoItem> items;
   private String userId;
-
-  private static final String TODO_LISTS_DATABASE = "todo";
-  private static final String TODO_LISTS_COLLECTION = "lists";
+  private Set<BsonValue> syncedIds;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -85,26 +83,17 @@ public class TodoListActivity extends AppCompatActivity {
 
     // Set up collections
     items = mongoClient
-        .getDatabase(TodoItem.TODO_LIST_DATABASE)
-        .getCollection(TodoItem.TODO_LIST_COLLECTION, TodoItem.class)
+        .getDatabase(TodoItem.TODO_DATABASE)
+        .getCollection(TodoItem.TODO_ITEMS_COLLECTION, TodoItem.class)
         .withCodecRegistry(CodecRegistries.fromRegistries(
             BsonUtils.DEFAULT_CODEC_REGISTRY,
             CodecRegistries.fromCodecs(TodoItem.codec)));
-    lists =
-        mongoClient
-            .getDatabase(TODO_LISTS_DATABASE)
-            .getCollection(TODO_LISTS_COLLECTION);
 
     // Configure sync to be remote wins on both collections meaning and conflict that occurs should
     // prefer the remote version as the resolution.
     items.sync().configure(
         DefaultSyncConflictResolvers.remoteWins(),
         itemUpdateListener,
-        (documentId, error) -> Log.e(TAG, error.getLocalizedMessage()));
-
-    lists.sync().configure(
-        DefaultSyncConflictResolvers.remoteWins(),
-        listUpdateListener,
         (documentId, error) -> Log.e(TAG, error.getLocalizedMessage()));
 
     // Set up recycler view for to-do items
@@ -207,21 +196,17 @@ public class TodoListActivity extends AppCompatActivity {
   }
 
   private void doLogin() {
-    Stitch.getDefaultAppClient().getAuth().loginWithCredential(new AnonymousCredential())
-        .addOnSuccessListener(user -> {
-          userId = user.getId();
-          invalidateOptionsMenu();
-          Toast.makeText(TodoListActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-
-          if (lists.sync().getSyncedIds().isEmpty()) {
-            lists.sync().insertOne(new Document("_id", userId));
-          }
-        })
-        .addOnFailureListener(e -> {
-          invalidateOptionsMenu();
-          Log.d(TAG, "error logging in", e);
-          Toast.makeText(TodoListActivity.this, "Failed logging in", Toast.LENGTH_SHORT).show();
-        });
+      Stitch.getDefaultAppClient().getAuth().loginWithCredential(new AnonymousCredential())
+              .addOnSuccessListener(user -> {
+                  userId = user.getId();
+                  invalidateOptionsMenu();
+                  Toast.makeText(TodoListActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+              })
+              .addOnFailureListener(e -> {
+                  invalidateOptionsMenu();
+                  Log.d(TAG, "error logging in", e);
+                  Toast.makeText(TodoListActivity.this, "Failed logging in", Toast.LENGTH_SHORT).show();
+              });
   }
 
   private class ListUpdateListener implements ChangeEventListener<Document> {
@@ -236,7 +221,7 @@ public class TodoListActivity extends AppCompatActivity {
   private class ItemUpdateListener implements ChangeEventListener<TodoItem> {
     @Override
     public void onEvent(final BsonValue documentId, final ChangeEvent<TodoItem> event) {
-      if (event.getOperationType() == ChangeEvent.OperationType.DELETE) {
+      if (event.getOperationType() == OperationType.DELETE) {
         todoAdapter.removeItemById(event.getDocumentKey().getObjectId("_id").getValue());
         return;
       }
@@ -248,7 +233,6 @@ public class TodoListActivity extends AppCompatActivity {
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Add Item");
 
-    @SuppressLint("InflateParams")
     final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
     final EditText input = view.findViewById(R.id.et_todo_item_task);
 
@@ -269,7 +253,6 @@ public class TodoListActivity extends AppCompatActivity {
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Edit Item");
 
-    @SuppressLint("InflateParams")
     final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
     final EditText input = view.findViewById(R.id.et_todo_item_task);
 
@@ -299,7 +282,7 @@ public class TodoListActivity extends AppCompatActivity {
           if (!localTask.isSuccessful()) {
             return Tasks.forResult(Collections.emptyList());
           }
-          final Set<BsonValue> syncedIds = items.sync().getSyncedIds();
+
           final Map<ObjectId, TodoItem> localItems = new HashMap<>();
           for (final TodoItem item : localTask.getResult()) {
             localItems.put(item.getId(), item);
@@ -340,7 +323,6 @@ public class TodoListActivity extends AppCompatActivity {
     items.sync().insertOne(newItem)
         .addOnSuccessListener(result -> {
           todoAdapter.updateOrAddItem(newItem);
-          touchList();
         })
         .addOnFailureListener(e -> Log.e(TAG, "failed to insert todo item", e));
   }
@@ -385,9 +367,5 @@ public class TodoListActivity extends AppCompatActivity {
       Tasks.whenAllComplete(tasks)
           .addOnCompleteListener(task -> todoAdapter.clearItems());
     });
-  }
-
-  private void touchList() {
-    lists.sync().updateOne(new Document("_id", userId), new Document("$inc", new Document("i", 1)));
   }
 }

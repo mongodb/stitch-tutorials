@@ -33,8 +33,8 @@ import org.bson.types.ObjectId;
 
 class TodoItem {
 
-  public static final String TODO_LIST_DATABASE = "todo";
-  public static final String TODO_LIST_COLLECTION = "items";
+  public static final String TODO_DATABASE = "todo";
+  public static final String TODO_ITEMS_COLLECTION = "items";
 
   private final ObjectId id;
   private final String ownerId;
