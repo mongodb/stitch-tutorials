@@ -39,7 +39,6 @@ struct TodoItem: Codable, Hashable, Comparable {
                 filter: ["_id": id],
                 update: ["$set": [CodingKeys.index.rawValue: index] as Document],
                 options: nil) { _ in
-
             }
         }
     }

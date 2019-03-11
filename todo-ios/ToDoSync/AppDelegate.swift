@@ -4,12 +4,10 @@ import StitchRemoteMongoDBService
 
 private let todoListsDatabase = "todo"
 private let todoItemsCollection = "items"
-private let todoListsCollection = "lists"
 
 let stitch = try! Stitch.initializeAppClient(withClientAppID: "<APP_ID>")
 
 var itemsCollection: RemoteMongoCollection<TodoItem>!
-var listsCollection: RemoteMongoCollection<TodoList>!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         itemsCollection = mongoClient
             .db(todoListsDatabase)
             .collection(todoItemsCollection, withCollectionType: TodoItem.self)
-        listsCollection = mongoClient
-            .db(todoListsDatabase)
-            .collection(todoListsCollection, withCollectionType: TodoList.self)
        
         return true
     }
