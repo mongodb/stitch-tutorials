@@ -1,7 +1,7 @@
 <resources>
-    <string name="stitch_client_app_id">App_ID</string>
+    <string name="stitch_client_app_id">yatdaagain-qestg</string>
     <string name="facebook_app_id">Facebook_App_ID</string>
-    <string name="google_web_client_id">Google_WebClient_ID</string>
+    <string name="google_web_client_id">145124500541-c8nm73rrg5bgm95gfmtg8rvfjmdl5tgs.apps.googleusercontent.com</string>
 
     <string name="app_name">TodoSync</string>
     <string name="login_action_label">Log in</string>
