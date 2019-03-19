@@ -42,7 +42,7 @@ android {
 dependencies {
     implementation 'com.android.support:appcompat-v7:28.+'
     implementation 'com.android.support:design:28.+'
-    implementation 'org.mongodb:stitch-android-sdk:4.+'
+    implementation 'org.mongodb:stitch-android-sdk:4.2+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 

@@ -124,23 +124,9 @@ UIViewController, UITableViewDataSource, UITableViewDelegate, ErrorListener, BEM
                                              checked: false)
                 itemsCollection.sync.insertOne(document: todoItem) { result in
                     switch result {
-                    case .success(_):
-                        listsCollection.sync.updateOne(
-                            filter: ["_id": self.userId!],
-                            update: ["$push": ["todos": todoItem.id] as Document],
-                            options: nil)
-                        { result in
-                            switch result {
-                            case .success(_):
-                                DispatchQueue.main.sync {
-                                    self.tableView.reloadData()
-                                }
-                            case .failure(let e):
-                                print(e)
-                            }
-                        }
                     case .failure(let e):
                         fatalError(e.localizedDescription)
+                    case .success(let result): break
                     }
                     
                 }
@@ -162,54 +148,18 @@ UIViewController, UITableViewDataSource, UITableViewDelegate, ErrorListener, BEM
                                         switch result {
                                         case .failure(let error):
                                             print(error.localizedDescription)
-                                        case .success(_):
-                                            listsCollection.sync.updateOne(
-                                                filter: ["_id": self.userId ?? BSONNull()],
-                                                update: ["$set": ["todos": self.todoItems.compactMap({ !$0.checked ? $0.id : nil })] as Document], options: nil) { _ in
-                                                    DispatchQueue.main.sync {
-                                                        self.checkBoxAll.on = false
-                                                    }
-                                            }
+                                        case .success(let result): break
                                         }
         }
     }
     
     private func loggedIn() {
-        if listsCollection.sync.syncedIds.isEmpty {
-            listsCollection.sync.insertOne(document: TodoList(id: userId!)) { _ in }
-        }
-        
-        if itemsCollection.sync.syncedIds.isEmpty {
-            listsCollection.find().first { result in
-                guard case let .success(todos) = result else {
-                    fatalError()
-                }
-                
-                try? itemsCollection.sync.sync(ids: todos?.todos ?? [])
-            }
-        }
         // Configure sync to be remote wins on both collections meaning and conflict that occurs should
         // prefer the remote version as the resolution.
         itemsCollection.sync.configure(
             conflictHandler: DefaultConflictHandler<TodoItem>.remoteWins(),
             changeEventDelegate: ItemsCollectionDelegate(self),
             errorListener: self)
-        
-        listsCollection.sync.configure(
-            conflictHandler: DefaultConflictHandler<TodoList>.remoteWins(),
-            changeEventDelegate: { documentId, event in
-                if !event.hasUncommittedWrites {
-                    guard let todos = event.fullDocument?.todos else {
-                        self.todoItems.removeAll()
-                        DispatchQueue.main.sync {
-                            self.tableView.reloadData()
-                        }
-                        try! itemsCollection.sync.desync(ids: itemsCollection.sync.syncedIds.map { $0.value })
-                        return
-                    }
-                    try! itemsCollection.sync.sync(ids: todos)
-                }
-        }, errorListener: self.on)
         
         itemsCollection.sync.find { result in
             switch result {
