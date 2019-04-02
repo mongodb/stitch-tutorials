@@ -1,9 +1,0 @@
-{
-    "name": "mongodb-atlas",
-    "type": "mongodb-atlas",
-    "config": {
-        "clusterName": "todo",
-        "wireProtocolEnabled": true
-    },
-    "version": 1
-}

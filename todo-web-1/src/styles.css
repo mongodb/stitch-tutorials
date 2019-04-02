@@ -1,0 +1,111 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+body {
+  font-family:"Roboto", serif;
+  margin:0px;
+}
+
+.logout {
+  font-size:.8em;
+  margin-left: 10px;
+}
+
+.settings {
+  font-size:.8em;
+  margin-left: 10px;
+}
+
+.login-links-panel{
+  margin:40px;
+}
+
+.new-item-input {
+  font-size: 2em;
+}
+
+.checkbox-input {
+	display:inline-block;
+	width:30px;
+	height:30px;
+	line-height:30px;
+	font-size:2em;
+	text-align:center;
+	border:1px solid #333;
+  border-radius:3px;
+  color: #333;
+  background-color: #888;
+}
+
+.profile-pic{
+  height:40px;
+  width:40px;
+  margin-right: 10px;
+}
+
+
+.new-item{
+  font-size:1.8em;
+  width: 60%
+}
+
+.todo-item-root {
+	margin-bottom:10px;
+}
+
+.todo-item-text{
+	font-size: 1.8em;
+  color: #115500;
+}
+.todo-item-container{
+	display:flex;
+  align-items: center;
+  background-color: #888;
+}
+.todo-item-label{
+
+}
+
+.controls{
+  margin-left:30px;
+	display:flex;
+  align-items:center;
+  width: 100%;
+}
+
+.cleanup-button{
+	padding:5px;
+	background-color: #f83d0e;
+}
+
+.cleanup-button {
+  position:relative;
+  border: 1px solid black;;
+  cursor: pointer;
+  display: inline-block;
+	margin-left:30px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.cleanup-button:active {
+	top: 2px;
+  box-shadow: 0 5px 8px rgba(0,0,0,0.19), 0 4px 4px rgba(0,0,0,0.23);
+}
+
+.items-list{
+  margin-top:15px;
+  max-width:500px;
+  margin-left:0px;
+}
+.list-empty-label{
+  color: #FFF;
+  margin-left:0px;
+}
+
+.facebook-signin-logo{
+  height: 18px;
+  width: 18px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAAAM1BMVEU7V53////7/P33+Pvm6vPe4++erM9HYaPs7/bY3uu8xd6uutiXpstfd7BNZ6dGYKM+Wp8D8PpVAAAAS0lEQVQoz2MYIoCfh5OZkZkFuyQvCyMYYJVk52DEI8vGiE+WFSjBzY7LTUxAWT6cLgYbSnVZRiTAJIBPlhWvXi68smz4XTUqS6IsADRcAScdHoCmAAAAAElFTkSuQmCC);
+  background-size:18px 18px;
+}

@@ -1,0 +1,73 @@
+PODS:
+  - BEMCheckBox (1.4.1)
+  - mongo-embedded-c-driver (1.13.0-4.0.4)
+  - mongo_embedded (4.0.4)
+  - mongoc_embedded (4.0.4):
+    - mongo-embedded-c-driver (~> 1.13.0-4.0.4)
+    - mongo_embedded (~> 4.0.4)
+  - MongoMobile (0.0.7):
+    - mongo_embedded (~> 4.0.4)
+    - mongoc_embedded (~> 4.0.4)
+    - MongoSwift (~> 0.0.9)
+  - MongoSwift (0.0.9):
+    - mongo-embedded-c-driver (~> 1.13.0-4.0.0)
+  - StitchCore (5.0.0):
+    - StitchCoreSDK (= 5.0.0)
+  - StitchCoreLocalMongoDBService (5.0.0):
+    - MongoMobile (= 0.0.7)
+    - StitchCoreSDK (= 5.0.0)
+  - StitchCoreRemoteMongoDBService (5.0.0):
+    - StitchCoreLocalMongoDBService (= 5.0.0)
+    - StitchCoreSDK (= 5.0.0)
+  - StitchCoreSDK (5.0.0):
+    - MongoSwift (= 0.0.9)
+  - StitchRemoteMongoDBService (5.0.0):
+    - StitchCore (= 5.0.0)
+    - StitchCoreRemoteMongoDBService (= 5.0.0)
+  - StitchSDK (5.0.0):
+    - StitchSDK/StitchSDK (= 5.0.0)
+  - StitchSDK/StitchRemoteMongoDBService (5.0.0):
+    - StitchRemoteMongoDBService (= 5.0.0)
+  - StitchSDK/StitchSDK (5.0.0):
+    - StitchSDK/StitchRemoteMongoDBService
+  - Toast-Swift (4.0.1)
+
+DEPENDENCIES:
+  - BEMCheckBox
+  - StitchSDK (~> 5.0.0)
+  - Toast-Swift (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BEMCheckBox
+    - mongo-embedded-c-driver
+    - mongo_embedded
+    - mongoc_embedded
+    - MongoMobile
+    - MongoSwift
+    - StitchCore
+    - StitchCoreLocalMongoDBService
+    - StitchCoreRemoteMongoDBService
+    - StitchCoreSDK
+    - StitchRemoteMongoDBService
+    - StitchSDK
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
+  mongo-embedded-c-driver: b46360baa15fc142baae80628822f26663220bde
+  mongo_embedded: e413134eb6b60544e7278add03007f8fe384a00c
+  mongoc_embedded: 41aadbb756b07070d6f0471192a84750cb42c580
+  MongoMobile: 6059b76325afe5fbb1072ae0fe47addc122591c6
+  MongoSwift: c7420b38a7e223439667f8c50aefada29c270df8
+  StitchCore: d865978249f7a1d9c47227c8b8b79abfd486e8ab
+  StitchCoreLocalMongoDBService: 1bbf70c8ae412be7d4e5747d72352ab74b0e97ef
+  StitchCoreRemoteMongoDBService: 438c2c86e7cfbbaa4bbabf1772e5c30aa4d13bc1
+  StitchCoreSDK: e5adeeea0589eba4b4d6fc956ffdff437bf477cb
+  StitchRemoteMongoDBService: 71c24bb37631563d223510e0cfcc71aad97af323
+  StitchSDK: a98577d9f03f91c2b44c7cd9e58e74f38e469b1f
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+
+PODFILE CHECKSUM: 72382e02d37c48de07f1ae4679018252ec2f6ee4
+
+COCOAPODS: 1.6.0.beta.2
