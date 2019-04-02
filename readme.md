@@ -20,23 +20,21 @@ demonstrate how to use authentication providers, Stitch read and write rules, Fu
 integration. The following tutorials are available:
 
 
-- **/todo-web**: A node-JS based todo application. 
+- **/todo-web-1**: A node-JS based to-do application. 
 See the [Building a Web-based To-Do App](https://docs.mongodb.com/stitch/tutorials/todo-web/) 
 tutorial for instructions.
 
-- **/todo-android**: A Java application for Android that uses anonymous authentication and Mobile Sync. 
+- **/todo-android-1**: A Java application for Android that uses anonymous authentication and Mobile Sync. 
 See the [To-Do (Android App)](https://docs.mongodb.com/stitch/tutorials/todo-android/) 
 tutorial for instructions.
 
-- **/todo-android-advanced**: A Java application for Android that uses Mobile Sync and the Email/Password, 
-Google, and Facebook OAuth authentication providers.
-See the [To-Do Advanced (Android App)](https://docs.mongodb.com/stitch/tutorials/todo-android/) 
-tutorial for instructions.
-
-- **/todo-ios**: A Swift application for iOS that uses anonymous authentication and Mobile Sync. 
+- **/todo-ios-1**: A Swift application for iOS that uses anonymous authentication and Mobile Sync. 
 See the [To-Do (iOS App)](https://docs.mongodb.com/stitch/tutorials/todo-ios/) 
 tutorial for instructions.
 
+## What's next?
+Stay tuned for additional tutorials that build atop the to-do apps, showing you how to integrate other 
+authentication providers and thrid party services.
 
 ## Where are the other Tutorials?
 
