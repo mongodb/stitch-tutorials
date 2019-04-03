@@ -12,7 +12,7 @@ const NavbarContainer = styled.div`
 `;
 
 const LogoutButton = () => (
-  <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
+  <Button onClick={() => onLogout() }>Log Out</Button>
 );
 
 function Navbar() {
@@ -24,3 +24,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
+function onLogout() {
+  logoutUser(app.auth.user).then(() =>{ window.location.reload() });
+}

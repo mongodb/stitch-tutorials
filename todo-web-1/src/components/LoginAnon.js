@@ -63,8 +63,10 @@ const ButtonRow = styled.div`
 export function LoginForm(props) {
   const { loginAnonymous } = props;
   const handleLogin = () => {
-    loginAnonymous();
-  };
+    loginAnonymous().then(() => {
+      window.location.reload();
+    });
+  }
   
   return (
     <LoginCard inverse color="dark">
