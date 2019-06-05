@@ -1,47 +1,12 @@
-# Stitch Tutorial Apps
+# This repository is no longer actively maintained, nor associated with the current tutorials. For the current tutorials, please visit [this organization](https://github.com/mongodb-university).
 
-The apps in this repo correspond to the tutorials in the 
-[Stitch documentation](https://docs.mongodb.com/stitch). It is our aim to keep 
-these tutorials always up to date with changes to Stitch, as well as changes to 
-third-party products that are used in the apps. 
+## For the iOS tutorial, please [click here](https://github.com/mongodb-university/stitch-tutorial-todo-ios).
 
-## Tutorials
+## For the Android tutorial, please [click here](https://github.com/mongodb-university/stitch-tutorial-todo-android).
 
-The following tutorials are included:
+## For the React tutorial, plese [click here](https://github.com/mongodb-university/stitch-tutorial-todo-web).
 
-- **/blog**: A basic javascript blog that demonstrates how to use Atlas and Stitch read & write rules. See the 
-  [Basic Blog](https://docs.mongodb.com/stitch/tutorials/build-blog/) tutorial
-  for instructions.
-
-### Todo Apps
-
-The Todo apps let users create and maintain their own "todo" lists. These apps and the associated tutorials 
-demonstrate how to use authentication providers, Stitch read and write rules, Functions, and third party service
-integration. The following tutorials are available:
-
-
-- **/todo-web-1**: A node-JS based to-do application. 
-See the [Building a Web-based To-Do App](https://docs.mongodb.com/stitch/tutorials/todo-web/) 
-tutorial for instructions.
-
-- **/todo-android-1**: A Java application for Android that uses anonymous authentication and Mobile Sync. 
-See the [To-Do (Android App)](https://docs.mongodb.com/stitch/tutorials/todo-android/) 
-tutorial for instructions.
-
-- **/todo-ios-1**: A Swift application for iOS that uses anonymous authentication and Mobile Sync. 
-See the [To-Do (iOS App)](https://docs.mongodb.com/stitch/tutorials/todo-ios/) 
-tutorial for instructions.
-
-## What's next?
-Stay tuned for additional tutorials that build atop the to-do apps, showing you how to integrate other 
-authentication providers and thrid party services.
-
-## Where are the other Tutorials?
-
-There are several other sample apps available [here](https://github.com/mongodb/stitch-examples),
-including the ones we used to have tutorials for. While we aim to keep them relatively fresh, they will 
-take a lower priority to the tutorials above. We encourage the community to help maintain these apps 
-by filing issues and PRs.
+## These tutorials follow the steps [here](https://docs.mongodb.com/stitch/tutorials/guides/todo-guide-1/).
 
 ## How do I give feedback?
 There are several ways to reach us:
